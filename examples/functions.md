@@ -137,3 +137,54 @@ var namespace = function (name) {
     : name;
 };
 ```
+
+## d3.csv(url, [row], callback)
+
+```js
+d3.csv("food.csv", function (data) {});
+
+// request 函数内部
+request = {
+  get: function (data, callback) {
+    return request.send("GET", data, callback);
+  },
+  send: function (method, data, callback) {
+    xhr.open(method, url, true, user, password);
+  },
+};
+
+// defaultMimeType -> ,
+var dsv$1 = function (defaultMimeType, parse) {
+  // 我们实际调用的函数，给定url、callback
+  return function (url, row, callback) {
+    // 如果就给2个参数，则row置为null
+    if (arguments.length < 3) (callback = row), (row = null);
+    // 内部使用 request() 返回 request
+    var r = request(url).mimeType(defaultMimeType); // ,
+    r.row = function (_) {
+      return arguments.length ? r.response(responseOf(parse, (row = _))) : row;
+    };
+    r.row(row);
+    return callback ? r.get(callback) : r;
+  };
+};
+
+var csv$1 = dsv$1("text/csv", csvParse);
+
+exports.csv = csv$1;
+```
+
+## selection_data(value,key)
+
+```js
+var dataset = [5, 10, 15, 20, 25];
+
+d3.select("body")
+  .selectAll("p")
+  .data(dataset) // selection_data
+  .enter()
+  .append("p")
+  .text("New paragraph!");
+```
+
+![selection_data](./imgs/selection_data.png)
