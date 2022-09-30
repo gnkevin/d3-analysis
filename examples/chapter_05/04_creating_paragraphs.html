@@ -11,10 +11,10 @@
 
       d3.select("body")
         .selectAll("p")
-        .data(dataset) // selection_data
-        .enter()
-        .append("p")
-        .text("New paragraph!");
+        .data(dataset) // selection_data {_groups:[],_parents:[],_enter:[],_exit:[]}
+        .enter() // 将 _enter 给 _groups
+        .append("p") // each 创建多个 p 结点
+        .text("New paragraph!"); // 设置textContent()
     </script>
   </body>
 </html>
